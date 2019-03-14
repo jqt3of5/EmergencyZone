@@ -1,5 +1,6 @@
 package com.emergencyzone.emergencyzone
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -7,6 +8,11 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
+import com.emergencyzone.emergencyzone.home.HomeFragment
+import com.emergencyzone.emergencyzone.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +42,20 @@ class MainActivity : AppCompatActivity() {
         mPager.adapter = MainPagerAdapter(supportFragmentManager)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_actions_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        var intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        return true
     }
 }
 
