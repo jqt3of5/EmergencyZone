@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.substantive.prepare.R
-import com.substantive.prepare.preferences.WeatherAlertsSettingsFragment
+import com.substantive.prepare.noaa.preferences.WeatherAlertsSettingsFragment
 
 class NoaaPageFragment : Fragment() {
 

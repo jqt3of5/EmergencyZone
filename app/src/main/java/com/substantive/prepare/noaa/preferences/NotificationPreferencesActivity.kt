@@ -1,4 +1,4 @@
-package com.substantive.prepare.preferences
+package com.substantive.prepare.noaa.preferences
 
 import android.content.Intent
 import android.os.Bundle

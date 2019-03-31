@@ -10,10 +10,13 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.substantive.prepare.guides.GuidesPageFragment
 import com.substantive.prepare.home.HomeFragment
 import com.substantive.prepare.login.LoginActivity
 import com.substantive.prepare.noaa.NoaaPageFragment
 import com.substantive.prepare.noaa.regionselect.FipsDataLoader
+import com.substantive.prepare.products.ProductPageFragment
+import com.substantive.prepare.tracker.TrackerPageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -76,10 +79,10 @@ class MainPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm)
         when (index)
         {
             0 -> return HomeFragment()
-            1 -> return GuidesFragment()
+            1 -> return GuidesPageFragment()
             2 -> return NoaaPageFragment()
-            3 -> return TrackerFragment()
-            4 -> return ProductFragment()
+            3 -> return TrackerPageFragment()
+            4 -> return ProductPageFragment()
         }
 
         return HomeFragment()

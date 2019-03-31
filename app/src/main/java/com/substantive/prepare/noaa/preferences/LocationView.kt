@@ -1,4 +1,4 @@
-package com.substantive.prepare.preferences
+package com.substantive.prepare.noaa.preferences
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout

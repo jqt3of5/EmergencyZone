@@ -1,12 +1,11 @@
-package com.substantive.prepare.preferences
+package com.substantive.prepare.noaa.preferences
 
 import android.os.Bundle
 import android.support.v7.preference.PreferenceFragmentCompat
 import com.substantive.prepare.R
 
-
-class EmergencyZonePrefsFragment : PreferenceFragmentCompat() {
+class NationalWeatherServicePrefsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-       setPreferencesFromResource(R.xml.emergency_zone_preferences,rootKey)
+       setPreferencesFromResource(R.xml.national_weather_service_prefs,rootKey)
     }
 }
