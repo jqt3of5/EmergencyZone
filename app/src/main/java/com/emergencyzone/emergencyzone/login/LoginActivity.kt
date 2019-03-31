@@ -1,6 +1,8 @@
 package com.emergencyzone.emergencyzone.login
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -36,15 +38,17 @@ class LoginActivity : AppCompatActivity(){
 
         }
 
-        var forgotPasswordLink = findViewById<TextView>(R.id.forgot_password_link)
-        var link = "<a href='https://www.emergencyzone.com/login_sendpass.asp'>Forgot Password</a>"
-        forgotPasswordLink.text = fromHtml(link)
-        forgotPasswordLink.movementMethod = LinkMovementMethod.getInstance()
+        var forgotPasswordButton = findViewById<TextView>(R.id.forgot_password_button)
+        forgotPasswordButton.setOnClickListener {
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.emergencyzone.com/login_sendpass.asp"))
+            startActivity(intent)
+        }
 
-        var dontHaveAccount = findViewById<TextView>(R.id.dont_have_account_link)
-        link = "<a href='https://www.emergencyzone.com/AccountSettings.asp?AddNewCustomer=Y&ReturnTo='>Don't have an account?</a>"
-        dontHaveAccount.text = fromHtml(link)
-        dontHaveAccount.movementMethod = LinkMovementMethod.getInstance()
+        var dontHaveAccount = findViewById<TextView>(R.id.dont_have_account_button)
+        dontHaveAccount.setOnClickListener {
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.emergencyzone.com/AccountSettings.asp?AddNewCustomer=Y&ReturnTo="))
+            startActivity(intent)
+        }
     }
 
     fun fromHtml(source: String): Spanned {

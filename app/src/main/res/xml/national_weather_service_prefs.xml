@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="national_weather_service_prefs">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="nws_severe_alerts"
+            android:title="Severe Alerts" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="nws_moderate_alerts"
+            android:title="Moderate Alerts" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="nws_daily_weather"
+            android:title="Daily Weather" />
+</PreferenceScreen>

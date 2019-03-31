@@ -8,17 +8,19 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.emergencyzone.emergencyzone.home.HomeFragment
 import com.emergencyzone.emergencyzone.login.LoginActivity
+import com.emergencyzone.emergencyzone.noaa.NoaaFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var mPager : ViewPager
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+
 
         //TODO: I really really do not like how the ids/indexes are mapped like this, and again mapped down in the adapter.
         //I'm sure there is a better way, but for now I just want this to work.
@@ -26,7 +28,10 @@ class MainActivity : AppCompatActivity() {
         {
             R.id.navigation_home -> mPager.currentItem = 0
             R.id.navigation_guides -> mPager.currentItem = 1
-            R.id.navigation_noaa -> mPager.currentItem = 2
+            R.id.navigation_noaa -> {
+                mPager.currentItem = 2
+
+            }
             R.id.navigation_tracker -> mPager.currentItem = 3
             R.id.navigation_search_products -> mPager.currentItem = 4
         }
@@ -42,8 +47,6 @@ class MainActivity : AppCompatActivity() {
         mPager.adapter = MainPagerAdapter(supportFragmentManager)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

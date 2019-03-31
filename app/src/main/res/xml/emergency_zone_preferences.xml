@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="emergency_zone_preferences">
+
+    <PreferenceCategory android:title="Emergency Zone">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="ez_news"
+            android:title="News" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="ez_product_announcements"
+            android:title="Product Announcements" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="ez_emergency_preparedness"
+            android:title="Emergency Preparedness" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
