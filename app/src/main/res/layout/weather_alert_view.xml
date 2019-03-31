@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <merge
+<merge
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp" tools:parentTag="android.support.constraint.ConstraintLayout">
 
-        <TextView
+    <TextView
             android:id="@+id/notification_event"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -17,9 +17,9 @@
             android:text="event"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
+    <TextView
             android:id="@+id/notification_zone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,9 +28,9 @@
             android:text="Zone"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notification_area_description" />
+            app:layout_constraintTop_toBottomOf="@+id/notification_area_description"/>
 
-        <TextView
+    <TextView
             android:id="@+id/notification_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,9 +39,9 @@
             android:text="date"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notification_area_description" />
+            app:layout_constraintTop_toBottomOf="@+id/notification_area_description"/>
 
-        <TextView
+    <TextView
             android:id="@+id/notification_severity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,9 +51,9 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <ImageView
+    <ImageView
             android:id="@+id/event_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,9 +61,9 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/notification_severity"
-            app:srcCompat="@drawable/ic_menu_manage" />
+            app:srcCompat="@drawable/ic_menu_manage"/>
 
-        <TextView
+    <TextView
             android:id="@+id/notification_area_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -75,9 +75,9 @@
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notification_event" />
+            app:layout_constraintTop_toBottomOf="@+id/notification_event"/>
 
-        <View
+    <View
             android:id="@+id/view2"
             android:layout_width="0dp"
             android:layout_height="2dp"
@@ -87,6 +87,6 @@
             android:background="#cccccc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notification_zone" />
+            app:layout_constraintTop_toBottomOf="@+id/notification_zone"/>
     />
-    </merge>
+</merge>

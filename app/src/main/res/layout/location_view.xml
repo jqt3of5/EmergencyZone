@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.jqt3of5.noaa.Preferences.LocationView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<com.substantive.prepare.preferences.LocationView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                  android:layout_width="match_parent"
+                                                  android:layout_height="wrap_content"
+                                                  android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/location_clear_button"
@@ -33,4 +33,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</com.example.jqt3of5.noaa.Preferences.LocationView>
+</com.substantive.prepare.preferences.LocationView>
