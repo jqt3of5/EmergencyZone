@@ -1,18 +1,12 @@
 package com.substantive.prepare.repository.Api.Weather
 
-
 import com.substantive.prepare.repository.Api.Weather.DataObjects.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 
-//https://www.ncdc.noaa.gov/cdo-web/api/v2/{endpoint}
-
-interface NoaaApi
-{
-}
-
+//https://www.ncdc.noaa.gov/cdo-web/api/v2/{endpoint}?
 //https://api.weather.gov/
 interface WeatherApi
 {

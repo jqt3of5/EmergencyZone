@@ -6,6 +6,9 @@ import android.arch.persistence.room.Entity
 data class ForecastEntity(
     val zoneId : String,
     val stationId : String,
+    val cwa : String,
+    val gridX : Int,
+    val gridY : Int,
     val number : Int,
     val name : String,
     val startTime : String,
