@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">EmergencyZone</string>
+    <string name="app_name">Prepare</string>
     <string name="title_home">Home</string>
     <string name="title_guides">Guides</string>
     <string name="title_noaa">NOAA</string>
     <string name="title_inventory">Inventory</string>
     <string name="title_search">Search</string>
+    <string name="ews_zones">ews_zones</string>
 </resources>

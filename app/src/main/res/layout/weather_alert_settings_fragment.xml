@@ -18,7 +18,7 @@
             android:layout_marginBottom="24dp">
             <fragment
                 android:id="@+id/nws_prefs_fragment"
-                android:name="com.substantive.prepare.noaa.preferences.NationalWeatherServicePrefsFragment"
+                android:name="com.substantive.prepare.pages.noaa.preferences.NationalWeatherServicePrefsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp" />
