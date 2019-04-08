@@ -20,6 +20,11 @@ interface WeatherApi
     fun getAlertCounts() : Call<AlertCountsByLocation>
 
     @Headers("User-Agent: jqt3of5@gmail.com", "Accept: application/vnd.github.v3.full+json")
+    @GET("/zones/forecast")
+    fun getForecastZones() : Call<WeatherServiceZones>
+
+
+    @Headers("User-Agent: jqt3of5@gmail.com", "Accept: application/vnd.github.v3.full+json")
     @GET("/zones/forecast/{zone}/stations")
     fun getStationsInZone(@Path("zone") zoneId : String) : Call<WeatherServiceStations>
 

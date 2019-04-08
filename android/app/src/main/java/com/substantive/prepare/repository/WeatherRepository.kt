@@ -1,12 +1,11 @@
 package com.substantive.prepare.repository
 
 import android.arch.lifecycle.LiveData
-import com.substantive.prepare.repository.Api.Weather.DataObjects.WeatherServiceAlerts
-import com.substantive.prepare.repository.Api.Weather.DataObjects.ZoneForecast
 import com.substantive.prepare.repository.Api.NetworkingFactory
-import com.substantive.prepare.repository.Api.Weather.DataObjects.WeatherServiceForecast
+import com.substantive.prepare.repository.Api.Weather.DataObjects.*
 import com.substantive.prepare.repository.Api.Weather.WeatherApi
 import com.substantive.prepare.repository.Room.Entities.ForecastEntity
+import com.substantive.prepare.repository.Room.Entities.StationEntity
 import com.substantive.prepare.repository.Room.Entities.WeatherAlert
 import com.substantive.prepare.repository.Room.Entities.ZoneEntity
 import com.substantive.prepare.repository.Room.MainDatabase
@@ -15,6 +14,57 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class WeatherRepository {
+
+    //region Zones
+    fun getForecastZones() : LiveData<List<ZoneEntity>>
+    {
+        val db = MainDatabase.getInstance()
+        val dao = db.zones()
+        if (dao.getZoneCount() == 0)
+        {
+            downloadZones {
+                MainDatabase.runInAsyncTransaction {
+                    val dao = zones()
+                    it?.features?.forEach { zone ->
+                        var properties = zone.properties
+                        //TODO: First CWA? Does that work?
+                        val entity = ZoneEntity(properties.id,properties.type, properties.name, properties.state, properties.cwa.first())
+                        dao.Insert(entity)
+                    }
+                }
+
+            }
+        }
+
+        return dao.getAllZones()
+    }
+
+    private fun downloadZones(callback : (WeatherServiceZones?) -> Unit)
+    {
+        NetworkingFactory.api<WeatherApi>
+        {
+            getForecastZones().enqueue(object : Callback<WeatherServiceZones> {
+                override fun onFailure(call: Call<WeatherServiceZones>, t: Throwable) {
+                    callback(null)
+                }
+
+                override fun onResponse(call: Call<WeatherServiceZones>, response: Response<WeatherServiceZones>) {
+                    callback(response.body())
+                }
+            })
+        }
+    }
+//endregion
+
+    fun getStationsForZone(zoneId : String) : LiveData<StationEntity>
+    {
+
+    }
+
+    private fun downloadStationsForZone(zoneId : String, callback: (WeatherServiceStations?) -> Unit)
+    {
+        Netwo
+    }
 
     fun getWeatherForZone(zoneId : String) : LiveData<ForecastEntity>
     {
