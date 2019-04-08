@@ -9,7 +9,7 @@ import com.substantive.prepare.repository.Room.Entities.WeatherAlert
 import com.substantive.prepare.repository.Room.Entities.ZoneEntity
 import java.util.*
 
-@Database(entities = [WeatherAlert::class, ZoneEntity::class, ForecastDao::class, BlogPost::class, EmergencyZoneNotification::class], version = 1)
+@Database(entities = [WeatherAlert::class, ZoneEntity::class, ForecastDao::class, StationDao::class, BlogPost::class, EmergencyZoneNotification::class], version = 1)
 @TypeConverters(MainDatabase.Converters::class)
 abstract class MainDatabase : RoomDatabase() {
     companion object {
@@ -52,6 +52,7 @@ abstract class MainDatabase : RoomDatabase() {
     abstract fun emergencyZoneNotifications() : EmergencyZoneNotificationDao
     abstract fun zones() : ZoneDao
     abstract fun forecasts() : ForecastDao
+    abstract fun stations() : StationDao
 
     class Converters
     {

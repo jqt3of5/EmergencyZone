@@ -56,15 +56,50 @@ class WeatherRepository {
     }
 //endregion
 
-    fun getStationsForZone(zoneId : String) : LiveData<StationEntity>
+    //region Stations
+    fun getStationsForZone(zoneId : String) : LiveData<List<StationEntity>>
     {
+        val db = MainDatabase.getInstance()
+        val dao = db.stations()
+        if (dao.getStationCountForZone(zoneId) == 0)
+        {
+            downloadStationsForZone(zoneId) { stations ->
 
+                MainDatabase.runInAsyncTransaction {
+                    val dao = stations()
+                    stations?.features?.forEach {
+                        val props = it.properties
+                        val geometry = it.geometry
+                        val entity = StationEntity(props.stationIdentifier, zoneId, props.name,
+                            props.elevation.value, props.elevation.unitCode,
+                            geometry.coordinates[0],geometry.coordinates[1])
+                        dao.insert(entity)
+                    }
+                }
+            }
+        }
+
+        return dao.getStationsForZone(zoneId)
     }
 
     private fun downloadStationsForZone(zoneId : String, callback: (WeatherServiceStations?) -> Unit)
     {
-        Netwo
+        NetworkingFactory.api<WeatherApi> {
+            getStationsInZone(zoneId).enqueue(object : Callback<WeatherServiceStations?> {
+                override fun onFailure(call: Call<WeatherServiceStations?>, t: Throwable) {
+                    callback(null)
+                }
+
+                override fun onResponse(
+                    call: Call<WeatherServiceStations?>,
+                    response: Response<WeatherServiceStations?>
+                ) {
+                    callback(response.body())
+                }
+            })
+        }
     }
+//endregion
 
     fun getWeatherForZone(zoneId : String) : LiveData<ForecastEntity>
     {

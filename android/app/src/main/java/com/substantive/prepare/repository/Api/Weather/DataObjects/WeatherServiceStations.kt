@@ -11,5 +11,6 @@ data class WeatherServiceStation (
 data class WeatherServiceStationProperties (
     val stationIdentifier : String,
     val name : String,
-    val timeZone : String
+    val timeZone : String,
+    val elevation : WeatherServiceElevation
 )
