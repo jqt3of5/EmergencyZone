@@ -18,6 +18,7 @@ import com.substantive.prepare.pages.noaa.regionselect.FipsDataLoader
 import com.substantive.prepare.pages.products.ProductPageFragment
 import com.substantive.prepare.pages.tracker.TrackerPageFragment
 import com.substantive.prepare.repository.Room.MainDatabase
+import com.substantive.prepare.repository.WeatherRepository
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -48,8 +49,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        FipsDataLoader.loadFipsData(this)
-        MainDatabase.createInstance(this)
+       //Obsolete FipsDataLoader.loadFipsData(this)
+        var db = MainDatabase.createInstance(this)
+
+
         mPager = findViewById<ViewPager>(R.id.container)
         mPager.adapter = MainPagerAdapter(supportFragmentManager)
 

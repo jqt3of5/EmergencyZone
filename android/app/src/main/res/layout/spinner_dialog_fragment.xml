@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
+    <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/dialog_state_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-    <Spinner
+    <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/dialog_county_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

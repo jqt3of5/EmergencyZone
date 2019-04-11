@@ -15,7 +15,6 @@ data class StationEntity (
     val elevationUnit : String,
     val latitude : Float,
     val longitude : Float
-
 ){
     companion object {
         const val TABLE_NAME = "stations"

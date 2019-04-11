@@ -18,25 +18,25 @@ class WeatherRepository {
     //region Zones
     fun getForecastZones() : LiveData<List<ZoneEntity>>
     {
-        val db = MainDatabase.getInstance()
-        val dao = db.zones()
-        if (dao.getZoneCount() == 0)
-        {
-            downloadZones {
-                MainDatabase.runInAsyncTransaction {
-                    val dao = zones()
-                    it?.features?.forEach { zone ->
-                        var properties = zone.properties
-                        //TODO: First CWA? Does that work?
-                        val entity = ZoneEntity(properties.id,properties.type, properties.name, properties.state, properties.cwa.first())
-                        dao.Insert(entity)
+        MainDatabase.runInAsyncTransaction {
+
+            val dao = zones()
+            if (dao.getZoneCount() == 0)
+            {
+                downloadZones {
+                    MainDatabase.runInAsyncTransaction {
+
+                        it?.features?.forEach { zone ->
+                            var properties = zone.properties
+                            //TODO: First CWA? Does that work?
+                            val entity = ZoneEntity(properties.id,properties.type, properties.name, properties.state?: "", properties.cwa.first())
+                            dao.Insert(entity)
+                        }
                     }
                 }
-
             }
         }
-
-        return dao.getAllZones()
+        return MainDatabase.getInstance().zones().getAllZones()
     }
 
     private fun downloadZones(callback : (WeatherServiceZones?) -> Unit)
@@ -59,27 +59,30 @@ class WeatherRepository {
     //region Stations
     fun getStationsForZone(zoneId : String) : LiveData<List<StationEntity>>
     {
-        val db = MainDatabase.getInstance()
-        val dao = db.stations()
-        if (dao.getStationCountForZone(zoneId) == 0)
-        {
-            downloadStationsForZone(zoneId) { stations ->
+        MainDatabase.runInAsyncTransaction {
 
-                MainDatabase.runInAsyncTransaction {
-                    val dao = stations()
-                    stations?.features?.forEach {
-                        val props = it.properties
-                        val geometry = it.geometry
-                        val entity = StationEntity(props.stationIdentifier, zoneId, props.name,
-                            props.elevation.value, props.elevation.unitCode,
-                            geometry.coordinates[0],geometry.coordinates[1])
-                        dao.insert(entity)
+            val dao = stations()
+            if (dao.getStationCountForZone(zoneId) == 0)
+            {
+                downloadStationsForZone(zoneId) { stations ->
+                        MainDatabase.runInAsyncTransaction {
+
+                            stations?.features?.forEach {
+                                val props = it.properties
+                                val geometry = it.geometry
+                                val entity = StationEntity(
+                                    props.stationIdentifier, zoneId, props.name,
+                                    props.elevation.value, props.elevation.unitCode,
+                                    geometry.coordinates[0], geometry.coordinates[1]
+                                )
+                                dao.insert(entity)
+                            }
+                        }
                     }
                 }
             }
-        }
 
-        return dao.getStationsForZone(zoneId)
+        return MainDatabase.getInstance().stations().getStationsForZone(zoneId)
     }
 
     private fun downloadStationsForZone(zoneId : String, callback: (WeatherServiceStations?) -> Unit)
@@ -101,37 +104,66 @@ class WeatherRepository {
     }
 //endregion
 
-    fun getWeatherForZone(zoneId : String) : LiveData<ForecastEntity>
+    fun getWeatherForStation(stationId : String) : LiveData<ForecastEntity>
     {
         val db = MainDatabase.getInstance()
-        var zone = db.zones().getZoneForId(zoneId)
-        downloadForecastForZone(zone)
+        val station = db.stations().getStationById(stationId)
 
-        return db.forecasts().getForecastForZone(zoneId)
+        downloadPointData(station.latitude, station.longitude) { point ->
+            point?.properties?.let {
+                downloadForecast(it.cwa, it.gridX, it.gridY){forecast ->
+                    MainDatabase.runInAsyncTransaction {
+                        val dao = forecasts()
+                        forecast?.properties?.periods?.forEach { period ->
+                            val entity = ForecastEntity(stationId, point.properties.cwa, point.properties.gridX, point.properties.gridY,
+                                period.number, period.name,"","",
+                                period.tempurature, period.tempuratureUnit,
+                                period.windSpeed, period.windDirection,
+                                period.shortForecast, period.detailedForecast, ""
+                                )
+                            dao.Insert(entity)
+                        }
+                    }
+                }
+            }
+        }
+
+        return db.forecasts().getForecastForStation(stationId)
     }
 
-    fun downloadForecastForZone(zone : ZoneEntity)
+    fun downloadPointData(lat : Float, lon: Float, callback : (WeatherServicePoint?)->Unit)
     {
         NetworkingFactory.api<WeatherApi>
         {
-            getForecast(zone.zoneType, zone.zoneId).enqueue(object : Callback<WeatherServiceForecast> {
-                override fun onFailure(call: Call<WeatherServiceForecast>, t: Throwable) {
-
+            getPoint(lat, lon).enqueue(object : Callback<WeatherServicePoint> {
+                override fun onFailure(call: Call<WeatherServicePoint>, t: Throwable) {
+                    callback(null)
                 }
 
-                override fun onResponse(call: Call<WeatherServiceForecast>, response: Response<WeatherServiceForecast>) {
-                    response.body()?.let {
-                        MainDatabase.runInAsyncTransaction {
-
-
-
-                            forecasts().Insert()
-                        }
-                    }
+                override fun onResponse(call: Call<WeatherServicePoint>, response: Response<WeatherServicePoint>) {
+                    callback(response.body())
                 }
             })
         }
     }
+
+    fun downloadForecast(wfo : String, x : Int, y : Int,callback : (WeatherServiceForecast?) -> Unit)
+    {
+        NetworkingFactory.api<WeatherApi>
+        {
+            getForecast(wfo, x, y).enqueue(object : Callback<WeatherServiceForecast> {
+                override fun onFailure(call: Call<WeatherServiceForecast>, t: Throwable) {
+                    callback(null)
+                }
+
+                override fun onResponse(call: Call<WeatherServiceForecast>, response: Response<WeatherServiceForecast>) {
+                    callback(response.body())
+                }
+            })
+        }
+    }
+
+
     fun getAlertsForZone(zoneCode : String) : LiveData<List<WeatherAlert>>
     {
         downloadAlertForZone(zoneCode)

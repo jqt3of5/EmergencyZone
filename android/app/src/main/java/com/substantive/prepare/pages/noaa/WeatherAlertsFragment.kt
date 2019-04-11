@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import com.substantive.prepare.R
 import com.substantive.prepare.pages.noaa.regionselect.CountyFipsData
 import com.substantive.prepare.pages.noaa.regionselect.FipsDataLoader
+import com.substantive.prepare.repository.Room.Entities.ZoneEntity
 import com.substantive.prepare.repository.WeatherRepository
 
 class WeatherAlertsFragment : Fragment()
@@ -22,12 +23,14 @@ class WeatherAlertsFragment : Fragment()
     private lateinit var mAdapter : WeatherAlertsAdapter
     private lateinit var rootView : View
 
-    var autoSuggestItems : List<CountyFipsData> = listOf()
+    var autoSuggestItems : List<ZoneEntity> = listOf()
     lateinit var autoSuggestAdapter : ArrayAdapter<CountyFipsData>
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.weather_fragment, container, false)
 
@@ -36,7 +39,7 @@ class WeatherAlertsFragment : Fragment()
 
         }
 
-        FipsDataLoader.stateToCountiesMap?.let {
+        /*FipsDataLoader.stateToCountiesMap?.let {
 
             val items = it.map {
                 it.value.toMutableList()
@@ -46,7 +49,14 @@ class WeatherAlertsFragment : Fragment()
             }
             var autoSuggestAdapter = ArrayAdapter<CountyFipsData>(this.context, R.layout.simple_spinner_layout, autoSuggestItems)
             weatherView.searchTextView.setAdapter(autoSuggestAdapter)
-        }
+        }*/
+
+
+
+        WeatherRepository().getForecastZones().observe(this, Observer {
+            var autoSuggestAdapter = ArrayAdapter<ZoneEntity>(this.context, R.layout.simple_spinner_layout, it)
+            weatherView.searchTextView.setAdapter(autoSuggestAdapter)
+        })
 
         val layout = LinearLayoutManager(this.activity)
         mAdapter = WeatherAlertsAdapter()

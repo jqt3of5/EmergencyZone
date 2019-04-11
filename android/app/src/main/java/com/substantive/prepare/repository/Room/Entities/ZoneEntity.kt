@@ -16,4 +16,8 @@ class ZoneEntity (
     companion object {
         const val TABLE_NAME : String = "Zones"
     }
+
+    override fun toString(): String {
+        return zoneName + ", " + state
+    }
 }
