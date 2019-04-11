@@ -39,16 +39,14 @@ class WeatherAlertsSettingsFragment : Fragment(), SpinnerDialogSelectedItemListe
         addButton.setOnClickListener {
             showRegionSelectDialog()
         }
-
-        val recyclerView = view.findViewById(R.id.nws_locations_recycler_view) as RecyclerView
-
         prefs = PreferenceManager.getDefaultSharedPreferences(context)
         selectedZoneCodes = prefs.getStringSet(getString(R.string.ews_zones), emptySet()).toMutableList()
 
-        mLocationsAdapter = LocationsAdapter(selectedZoneCodes)
         mLocationsAdapter.setOnClickListener {
             removeZoneAt(it)
         }
+
+        val recyclerView = view.findViewById(R.id.nws_locations_recycler_view) as RecyclerView
         recyclerView.adapter = mLocationsAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -67,6 +65,12 @@ class WeatherAlertsSettingsFragment : Fragment(), SpinnerDialogSelectedItemListe
                     }
                     mStateToZoneMap[it.state]?.add(it)
                 }
+
+                val selectedEntities = it.filter {
+                    selectedZoneCodes.contains(it.zoneId)
+                }
+
+                mLocationsAdapter = LocationsAdapter(selectedEntities)
             }
         })
     }

@@ -14,11 +14,9 @@ import com.substantive.prepare.pages.guides.GuidesPageFragment
 import com.substantive.prepare.pages.home.HomePageFragment
 import com.substantive.prepare.login.LoginActivity
 import com.substantive.prepare.pages.noaa.NoaaPageFragment
-import com.substantive.prepare.pages.noaa.regionselect.FipsDataLoader
 import com.substantive.prepare.pages.products.ProductPageFragment
 import com.substantive.prepare.pages.tracker.TrackerPageFragment
 import com.substantive.prepare.repository.Room.MainDatabase
-import com.substantive.prepare.repository.WeatherRepository
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

@@ -1,17 +1,15 @@
 package com.substantive.prepare.pages.noaa.preferences
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.substantive.prepare.R
-import com.substantive.prepare.pages.noaa.regionselect.FipsDataLoader
+import com.substantive.prepare.repository.Room.Entities.ZoneEntity
 
 class LocationsAdapter : RecyclerView.Adapter<LocationsViewHolder> {
 
-    private var zoneCodes : List<String>
+    private var zones : List<ZoneEntity>
     private var onClickListener : ((Int)->Unit)? = null
 
     fun setOnClickListener(listener : ((Int)->Unit))
@@ -19,9 +17,9 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsViewHolder> {
         onClickListener = listener
     }
 
-    constructor(zones : List<String>) : super()
+    constructor(zones : List<ZoneEntity>) : super()
     {
-        zoneCodes = zones
+        this.zones = zones
     }
 
 
@@ -32,13 +30,13 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsViewHolder> {
     }
 
     override fun getItemCount(): Int {
-       return zoneCodes.count()
+       return zones.count()
     }
 
     override fun onBindViewHolder(holder: LocationsViewHolder, position: Int) {
 
-        val location = zoneCodes[position]
-        holder.view.locationName.text = FipsDataLoader.zoneToCountyMap?.get(location)
+        val zone = zones[position]
+        holder.view.locationName.text = zone.toString()
         holder.view.clearImageView.setOnClickListener{
             onClickListener?.invoke(position)
         }

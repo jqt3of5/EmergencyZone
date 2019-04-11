@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import com.substantive.prepare.R
-import com.substantive.prepare.pages.noaa.regionselect.FipsDataLoader
 import com.substantive.prepare.repository.Room.Entities.WeatherAlert
 import java.util.*
 

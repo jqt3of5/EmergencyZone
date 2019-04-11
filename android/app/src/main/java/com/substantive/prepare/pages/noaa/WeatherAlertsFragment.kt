@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.substantive.prepare.R
 import com.substantive.prepare.pages.noaa.regionselect.CountyFipsData
-import com.substantive.prepare.pages.noaa.regionselect.FipsDataLoader
 import com.substantive.prepare.repository.Room.Entities.ZoneEntity
 import com.substantive.prepare.repository.WeatherRepository
 

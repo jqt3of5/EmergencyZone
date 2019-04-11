@@ -7,11 +7,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import com.substantive.prepare.R
 import com.substantive.prepare.pages.noaa.regionselect.CountyFipsData
-import com.substantive.prepare.pages.noaa.regionselect.FipsDataLoader
 
 
 //The View for displaying weather data for one specific region

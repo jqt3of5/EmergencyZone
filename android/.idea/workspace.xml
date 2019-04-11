@@ -42,11 +42,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LocationsAdapter.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LocationsAdapter.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/pages/noaa/preferences/LocationsAdapter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="153">
+              <caret line="9" column="15" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+              <folding>
+                <element signature="e#56#297#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -87,11 +90,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeatherAlertsSettingsFragment.kt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WeatherAlertsSettingsFragment.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/pages/noaa/preferences/WeatherAlertsSettingsFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="60" column="34" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
+            <state relative-caret-position="561">
+              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+              <folding>
+                <element signature="e#1977#2006#1" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2541,11 +2547,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/repository/Room/StationDao.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/pages/noaa/regionselect/SpinnerDialogFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/spinner_dialog_fragment.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/pages/noaa/preferences/WeatherAlertsSettingsFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/repository/Api/Weather/DataObjects/WeatherServiceZones.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/repository/Room/Entities/ZoneEntity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/repository/WeatherRepository.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/repository/Room/ZoneDao.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/pages/noaa/preferences/LocationsAdapter.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/pages/noaa/preferences/WeatherAlertsSettingsFragment.kt" />
       </list>
     </option>
   </component>
@@ -2801,7 +2808,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="right" id="Preview" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32909605" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32909605" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Logcat" />
       <window_info id="Captures" order="2" weight="0.25" />
@@ -2809,7 +2816,7 @@
       <window_info id="Designer" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26778522" />
       <window_info anchor="bottom" id="Build" weight="0.32909605" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32909605" />
       <window_info anchor="right" id="Gradle" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Theme Preview" />
@@ -3098,24 +3105,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/pages/noaa/preferences/WeatherAlertsSettingsFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="60" column="34" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/repository/Api/Weather/DataObjects/WeatherServiceZones.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/repository/Room/Entities/ZoneEntity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -3140,10 +3133,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/repository/Room/Entities/ZoneEntity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/pages/noaa/preferences/LocationsAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="153">
+          <caret line="9" column="15" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+          <folding>
+            <element signature="e#56#297#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/substantive/prepare/pages/noaa/preferences/WeatherAlertsSettingsFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+          <folding>
+            <element signature="e#1977#2006#1" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
