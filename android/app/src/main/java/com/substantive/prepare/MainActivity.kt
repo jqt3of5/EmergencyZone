@@ -14,7 +14,6 @@ import com.substantive.prepare.pages.guides.GuidesPageFragment
 import com.substantive.prepare.pages.home.HomePageFragment
 import com.substantive.prepare.login.LoginActivity
 import com.substantive.prepare.pages.noaa.NoaaPageFragment
-import com.substantive.prepare.pages.noaa.regionselect.FipsDataLoader
 import com.substantive.prepare.pages.products.ProductPageFragment
 import com.substantive.prepare.pages.tracker.TrackerPageFragment
 import com.substantive.prepare.repository.Room.MainDatabase
@@ -48,8 +47,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        FipsDataLoader.loadFipsData(this)
-        MainDatabase.createInstance(this)
+       //Obsolete FipsDataLoader.loadFipsData(this)
+        var db = MainDatabase.createInstance(this)
+
+
         mPager = findViewById<ViewPager>(R.id.container)
         mPager.adapter = MainPagerAdapter(supportFragmentManager)
 

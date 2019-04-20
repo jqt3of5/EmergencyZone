@@ -1,5 +1,6 @@
 package com.substantive.prepare.pages.noaa.preferences
 
+import android.arch.lifecycle.Observer
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,17 +13,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.substantive.prepare.R
 import com.substantive.prepare.pages.noaa.regionselect.CountyFipsData
-import com.substantive.prepare.pages.noaa.regionselect.FipsDataLoader
 import com.substantive.prepare.pages.noaa.regionselect.SpinnerDialogFragment
 import com.substantive.prepare.pages.noaa.regionselect.SpinnerDialogSelectedItemListener
+import com.substantive.prepare.repository.Room.Entities.ZoneEntity
+import com.substantive.prepare.repository.WeatherRepository
 
-class WeatherAlertsSettingsFragment : Fragment(), SpinnerDialogSelectedItemListener<CountyFipsData?> {
-
-    var mAvailableZones : Map<String, List<CountyFipsData>> = FipsDataLoader.stateToCountiesMap
+class WeatherAlertsSettingsFragment : Fragment(), SpinnerDialogSelectedItemListener<ZoneEntity?> {
 
     private lateinit var mLocationsAdapter : LocationsAdapter
-    private var zones : MutableList<String> = mutableListOf()
+    private var selectedZoneCodes : MutableList<String> = mutableListOf()
     lateinit private var prefs : SharedPreferences
+
+    private var mStates : MutableList<String> = mutableListOf()
+    private var mStateToZoneMap : HashMap<String, MutableList<ZoneEntity>> = hashMapOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.weather_alert_settings_fragment, container, false)
@@ -36,48 +39,69 @@ class WeatherAlertsSettingsFragment : Fragment(), SpinnerDialogSelectedItemListe
         addButton.setOnClickListener {
             showRegionSelectDialog()
         }
-
-        val recyclerView = view.findViewById(R.id.nws_locations_recycler_view) as RecyclerView
-
         prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        zones = prefs.getStringSet(getString(R.string.ews_zones), emptySet()).toMutableList()
+        selectedZoneCodes = prefs.getStringSet(getString(R.string.ews_zones), emptySet()).toMutableList()
 
-        mLocationsAdapter = LocationsAdapter(zones)
         mLocationsAdapter.setOnClickListener {
             removeZoneAt(it)
         }
+
+        val recyclerView = view.findViewById(R.id.nws_locations_recycler_view) as RecyclerView
         recyclerView.adapter = mLocationsAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        WeatherRepository().getForecastZones().observe(this, Observer {
+            it?.let {
+                val states = it.map {
+                    it.state
+                }
+                mStates.clear()
+                mStates.addAll(0, states)
+
+                it.forEach {
+                    if (!mStateToZoneMap.containsKey(it.state))
+                    {
+                        mStateToZoneMap[it.state] = mutableListOf()
+                    }
+                    mStateToZoneMap[it.state]?.add(it)
+                }
+
+                val selectedEntities = it.filter {
+                    selectedZoneCodes.contains(it.zoneId)
+                }
+
+                mLocationsAdapter = LocationsAdapter(selectedEntities)
+            }
+        })
     }
 
     fun showRegionSelectDialog()
     {
         val dialog = SpinnerDialogFragment()
-
-        dialog.mCountyMap = mAvailableZones
-        dialog.mStates = mAvailableZones.keys.toList().sorted()
+        dialog.mStates = mStates
+        dialog.mStateToZoneMap = mStateToZoneMap
         dialog.mTitle = "Select Zone"
         dialog.mListener = this
         dialog.show(fragmentManager, "state_select_fragment")
     }
 
-    override fun ItemSelected(selection: CountyFipsData?) {
+    override fun ItemSelected(selection: ZoneEntity?) {
         selection?.let {
-            addZone(it.getZoneCode())
+            addZone(it.zoneId)
         }
     }
 
     fun addZone(zone : String)
     {
-        zones.add(zone)
-        prefs.edit().putStringSet(getString(R.string.ews_zones), zones.toSet()).commit()
+        selectedZoneCodes.add(zone)
+        prefs.edit().putStringSet(getString(R.string.ews_zones), selectedZoneCodes.toSet()).commit()
         mLocationsAdapter.notifyDataSetChanged()
     }
 
     fun removeZoneAt(position : Int)
     {
-        zones.removeAt(position)
-        prefs.edit().putStringSet(getString(R.string.ews_zones), zones.toSet()).commit()
+        selectedZoneCodes.removeAt(position)
+        prefs.edit().putStringSet(getString(R.string.ews_zones), selectedZoneCodes.toSet()).commit()
         mLocationsAdapter.notifyDataSetChanged()
     }
 }

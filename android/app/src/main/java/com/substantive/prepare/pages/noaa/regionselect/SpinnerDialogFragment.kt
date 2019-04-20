@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.substantive.prepare.R
+import com.substantive.prepare.repository.Room.Entities.ZoneEntity
 
 class SpinnerDialogFragment : DialogFragment() {
 
@@ -16,15 +17,16 @@ class SpinnerDialogFragment : DialogFragment() {
     private lateinit var mStatesAdapter : ArrayAdapter<String>
     private lateinit var mCountyAdapter : ArrayAdapter<String>
     private lateinit var mAlertCountTextView : TextView
+
     lateinit var mStates : List<String>
-    lateinit var mCountyMap : Map<String, List<CountyFipsData>>
-    var mZoneCountMap : Map<String, Int>? = null
+    lateinit var mStateToZoneMap : HashMap<String, MutableList<ZoneEntity>>
+
 
     var mTitle : String? = null
-    var mListener : SpinnerDialogSelectedItemListener<CountyFipsData?>? = null
+    var mListener : SpinnerDialogSelectedItemListener<ZoneEntity?>? = null
 
     var selectedState : String? = null
-    var selectedCounty : CountyFipsData? = null
+    var selectedCounty : ZoneEntity? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.spinner_dialog_fragment, container)
@@ -41,16 +43,13 @@ class SpinnerDialogFragment : DialogFragment() {
         initializeStateSpinner(view)
         initializeCountySpinner(view)
 
-
         selectedState = mStates[0]
         mStatesAdapter.addAll(mStates)
         mStatesAdapter.notifyDataSetChanged()
 
-        mCountyMap[selectedState!!]?.let {
-            selectedCounty = it[0]
-        }
+        selectedCounty  = mStateToZoneMap[selectedState!!]?.first()
 
-        mCountyAdapter.addAll(mCountyMap[selectedState!!]!!.map{it.countyName})
+        mCountyAdapter.addAll(mStateToZoneMap[selectedState!!]!!.map { it.zoneName })
         mCountyAdapter.notifyDataSetChanged()
 
         mAlertCountTextView = view.findViewById(R.id.alert_count_text_view)
@@ -71,7 +70,7 @@ class SpinnerDialogFragment : DialogFragment() {
 
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedCounty = mCountyMap[selectedState!!]?.get(position)
+                selectedCounty = mStateToZoneMap[selectedState!!]?.get(position)
                 refreshAlertCount()
             }
         }
@@ -89,14 +88,14 @@ class SpinnerDialogFragment : DialogFragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
                 selectedState = mStates[position]
-                mCountyMap[selectedState!!]?.let {
+                mStateToZoneMap[selectedState!!]?.let {
                     selectedCounty = it[0]
                 }
 
                 refreshAlertCount()
 
                 mCountyAdapter.clear()
-                val counties = mCountyMap.get(selectedState!!)?.map {it.countyName}
+                val counties = mStateToZoneMap.get(selectedState!!)?.map { it.zoneName }
                 mCountyAdapter.addAll(counties)
                 mCountyAdapter.notifyDataSetChanged()
             }
@@ -106,13 +105,13 @@ class SpinnerDialogFragment : DialogFragment() {
 
     fun refreshAlertCount()
     {
-        mZoneCountMap?.let { map ->
+        /*TODO mZoneCountMap?.let { map ->
             selectedCounty?.let {
                 val zoneCode = it.getZoneCode()
                 map[zoneCode]?.let {
                     mAlertCountTextView.text = "Number of active Alerts: " + it
                 }
             }
-        }
+        }*/
     }
 }

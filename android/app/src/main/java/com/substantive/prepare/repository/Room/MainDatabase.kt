@@ -3,13 +3,10 @@ package com.substantive.prepare.repository.Room
 import android.arch.persistence.room.*
 import android.content.Context
 import android.os.AsyncTask
-import com.substantive.prepare.repository.Room.Entities.BlogPost
-import com.substantive.prepare.repository.Room.Entities.EmergencyZoneNotification
-import com.substantive.prepare.repository.Room.Entities.WeatherAlert
-import com.substantive.prepare.repository.Room.Entities.ZoneEntity
+import com.substantive.prepare.repository.Room.Entities.*
 import java.util.*
 
-@Database(entities = [WeatherAlert::class, ZoneEntity::class, ForecastDao::class, BlogPost::class, EmergencyZoneNotification::class], version = 1)
+@Database(entities = [WeatherAlert::class, ZoneEntity::class, ForecastEntity::class, StationEntity::class, BlogPost::class, EmergencyZoneNotification::class], version = 1)
 @TypeConverters(MainDatabase.Converters::class)
 abstract class MainDatabase : RoomDatabase() {
     companion object {
@@ -52,6 +49,7 @@ abstract class MainDatabase : RoomDatabase() {
     abstract fun emergencyZoneNotifications() : EmergencyZoneNotificationDao
     abstract fun zones() : ZoneDao
     abstract fun forecasts() : ForecastDao
+    abstract fun stations() : StationDao
 
     class Converters
     {

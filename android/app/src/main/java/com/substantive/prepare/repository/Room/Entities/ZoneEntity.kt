@@ -10,11 +10,14 @@ class ZoneEntity (
     val zoneType : String,
     val zoneName : String,
     val state : String,
-    val cwa : String, //Weather office
-    val radarStation : String
+    val cwa : String //Weather office
     ) {
 
     companion object {
         const val TABLE_NAME : String = "Zones"
+    }
+
+    override fun toString(): String {
+        return zoneName + ", " + state
     }
 }

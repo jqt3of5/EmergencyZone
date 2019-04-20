@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 class EmergencyZoneNotification(
         val title : String,
         val description: String,
-        val url : String) : INotifiableEntity
+        val url : String)
 {
         companion object {
             const val TABLE_NAME : String = "EmergencyZoneNotifications"
